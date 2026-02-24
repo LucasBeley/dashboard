@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "App Metadata",
+  "description": "Metadata file for apps in the workspace. Place as app.meta.json at the root of each app directory.",
+  "type": "object",
+  "required": ["name", "displayName", "description", "status"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "kebab-case name, should match the folder name"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Human-readable display name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of what the app does"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semver version string"
+    },
+    "techStack": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of technologies used"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "in-progress", "ready", "deployed", "archived"],
+      "description": "Current development status"
+    },
+    "github": {
+      "type": "object",
+      "properties": {
+        "owner": { "type": "string" },
+        "repo": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "required": ["owner", "repo", "url"]
+    },
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "method": { "type": "string", "description": "Deployment method (docker, static-export, github-actions, systemd, none)" },
+        "status": {
+          "type": "string",
+          "enum": ["not-deployed", "deploying", "live", "failed"]
+        },
+        "url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Production URL or null"
+        }
+      },
+      "required": ["method", "status"]
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "ISO date of creation"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Free-form tags for categorization"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "dashboard",
+  "displayName": "Workspace Dashboard",
+  "description": "A local web app that auto-discovers and displays all apps in the workspace. Scans sibling directories for app.meta.json files.",
+  "version": "0.1.0",
+  "techStack": ["Next.js", "TypeScript", "Tailwind CSS", "Zod"],
+  "status": "in-progress",
+  "github": {
+    "owner": "LucasBeley",
+    "repo": "dashboard",
+    "url": "https://github.com/LucasBeley/dashboard"
+  },
+  "deploy": {
+    "method": "static-export",
+    "status": "not-deployed",
+    "url": null
+  },
+  "createdAt": "2026-02-24",
+  "tags": ["utility", "internal"]
+}
