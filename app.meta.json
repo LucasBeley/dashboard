@@ -4,7 +4,7 @@
   "description": "A local web app that auto-discovers and displays all apps in the workspace. Scans sibling directories for app.meta.json files.",
   "version": "0.1.0",
   "techStack": ["Next.js", "TypeScript", "Tailwind CSS", "Zod"],
-  "status": "in-progress",
+  "status": "deployed",
   "github": {
     "owner": "LucasBeley",
     "repo": "dashboard",
@@ -12,7 +12,7 @@
   },
   "deploy": {
     "method": "docker",
-    "status": "not-deployed",
+    "status": "live",
     "url": "https://dashboard.lucasbt.fr"
   },
   "createdAt": "2026-02-24",
