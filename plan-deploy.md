@@ -1,42 +1,39 @@
-# Dashboard App — Deployment Plan
+# Dashboard — Deployment Plan
 
-## Status: Not deploying yet (local-only for now)
+## Method: Docker (Next.js standalone) behind Caddy behind Apache
 
-## Future Deployment Method: Static Export + Rsync
+## Architecture
 
-### Rationale
+```
+Apache (443, TLS) → Caddy (8080, Docker) → dashboard (3000, Docker)
+```
 
-The dashboard is a read-only display of workspace metadata. For production, it can be built as a static export (`next build` with `output: 'export'`) and served from any web server directory on the VPS.
+- **Apache** terminates TLS with wildcard cert `*.lucasbt.fr`, proxies to Caddy
+- **Caddy** runs in Docker, routes subdomains to app containers
+- **Dashboard** runs as Next.js standalone server in its own container
 
-However, since it reads sibling app metadata at render time, two modes are possible:
+## Infrastructure
 
-### Option A: Static Export (simple)
+- **Subdomain:** `dashboard.lucasbt.fr`
+- **Container port:** 3000 (internal, not published)
+- **Memory limit:** 192MB
+- **Volume:** `/home/deploy/apps:/workspace:ro` — scanner reads sibling `app.meta.json` files
+- **Env var:** `WORKSPACE_DIR=/workspace`
 
-- Run `next build` which pre-renders the page with current metadata.
-- Upload the `out/` directory to the VPS via rsync or SCP.
-- Serve with Nginx/Caddy as a static site.
-- **Trade-off:** Data is frozen at build time. Must rebuild + redeploy to update.
+## Deploy Commands
 
-### Option B: Node.js Server on VPS (dynamic)
+```bash
+# On VPS as deploy user
+cd /home/deploy/apps
+git clone git@github.com:LucasBeley/dashboard.git  # or git pull if already cloned
+docker compose up -d --build dashboard
+```
 
-- Deploy as a running Next.js server (`next start`).
-- Metadata is read on every page load (always fresh).
-- Managed with systemd or Docker.
-- **Trade-off:** Requires Node.js on the VPS and a running process.
+## Update Commands
 
-### Recommendation
-
-Start with **Option A** for simplicity. If live-updating matters, switch to **Option B** later.
-
-### Infrastructure Needs
-
-- A subdomain or path on the VPS (e.g., `dashboard.lucasbt.fr`)
-- Nginx/Caddy reverse proxy or static file serving
-- No database, no env vars required for basic operation
-
-### Steps (when ready)
-
-1. `npm run build` (generates `out/` with static HTML)
-2. `rsync -avz out/ user@vps:/var/www/dashboard/`
-3. Configure Nginx to serve `/var/www/dashboard/`
-4. Set up optional cron or GitHub Action to rebuild + redeploy on push
+```bash
+cd /home/deploy/apps/dashboard
+git pull
+cd /home/deploy/apps
+docker compose up -d --build dashboard
+```

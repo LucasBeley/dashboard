@@ -11,9 +11,9 @@
     "url": "https://github.com/LucasBeley/dashboard"
   },
   "deploy": {
-    "method": "static-export",
+    "method": "docker",
     "status": "not-deployed",
-    "url": null
+    "url": "https://dashboard.lucasbt.fr"
   },
   "createdAt": "2026-02-24",
   "tags": ["utility", "internal"]

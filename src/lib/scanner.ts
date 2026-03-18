@@ -3,7 +3,9 @@ import { join, resolve } from "path";
 import { appMetaSchema, type AppMeta } from "./schema";
 import { getGitInfo, type GitInfo } from "./git-info";
 
-const WORKSPACE_DIR = resolve(process.cwd(), "..");
+const WORKSPACE_DIR = process.env.WORKSPACE_DIR
+  ? resolve(process.env.WORKSPACE_DIR)
+  : resolve(process.cwd(), "..");
 const META_FILENAME = "app.meta.json";
 const SKIP_NAMES = new Set(["node_modules", ".claude"]);
 
