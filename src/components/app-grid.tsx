@@ -19,7 +19,6 @@ export function AppGrid({ apps }: { apps: DiscoveredApp[] }) {
   }
 
   const configured = apps.filter((a) => a.meta !== null);
-  const unconfigured = apps.filter((a) => a.meta === null);
 
   return (
     <div className="space-y-8">
@@ -28,19 +27,6 @@ export function AppGrid({ apps }: { apps: DiscoveredApp[] }) {
           {configured.map((app) => (
             <AppCard key={app.folderName} app={app} />
           ))}
-        </div>
-      )}
-
-      {unconfigured.length > 0 && (
-        <div>
-          <h3 className="text-xs font-medium uppercase tracking-wider text-gray-600 mb-3">
-            Unconfigured directories
-          </h3>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {unconfigured.map((app) => (
-              <AppCard key={app.folderName} app={app} />
-            ))}
-          </div>
         </div>
       )}
     </div>

@@ -2,7 +2,6 @@ interface HeaderProps {
   totalApps: number;
   deployedCount: number;
   inProgressCount: number;
-  unconfiguredCount: number;
 }
 
 function StatPill({ label, value }: { label: string; value: number }) {
@@ -18,7 +17,6 @@ export function Header({
   totalApps,
   deployedCount,
   inProgressCount,
-  unconfiguredCount,
 }: HeaderProps) {
   return (
     <header className="border-b border-white/[0.06] bg-white/[0.02]">
@@ -38,12 +36,6 @@ export function Header({
             <StatPill label="deployed" value={deployedCount} />
             <span className="text-gray-700">|</span>
             <StatPill label="in progress" value={inProgressCount} />
-            {unconfiguredCount > 0 && (
-              <>
-                <span className="text-gray-700">|</span>
-                <StatPill label="unconfigured" value={unconfiguredCount} />
-              </>
-            )}
           </div>
         </div>
       </div>

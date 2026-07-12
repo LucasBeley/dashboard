@@ -14,7 +14,6 @@ export default async function DashboardPage() {
   const inProgress = configured.filter(
     (a) => a.meta?.status === "in-progress"
   );
-  const unconfigured = apps.filter((a) => a.meta === null);
 
   return (
     <div className="min-h-screen">
@@ -22,7 +21,6 @@ export default async function DashboardPage() {
         totalApps={configured.length}
         deployedCount={deployed.length}
         inProgressCount={inProgress.length}
-        unconfiguredCount={unconfigured.length}
       />
       <main className="mx-auto max-w-7xl px-6 py-8">
         <AppGrid apps={apps} />
