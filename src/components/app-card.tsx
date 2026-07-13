@@ -35,13 +35,13 @@ function ExternalLinkIcon() {
 export function AppCard({ app }: { app: DiscoveredApp }) {
   if (!app.meta) {
     return (
-      <div className="rounded-xl border border-dashed border-white/10 bg-white/[0.02] p-5">
+      <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50 p-5">
         <p className="text-sm font-medium text-gray-500">{app.folderName}/</p>
-        <p className="mt-1 text-xs text-gray-600">
+        <p className="mt-1 text-xs text-gray-400">
           {app.parseError ? "Invalid app.meta.json" : "No app.meta.json"}
         </p>
         {app.parseError && (
-          <p className="mt-2 text-xs text-red-400/70 font-mono break-all">
+          <p className="mt-2 text-xs text-red-500 font-mono break-all">
             {app.parseError.slice(0, 120)}
           </p>
         )}
@@ -52,11 +52,11 @@ export function AppCard({ app }: { app: DiscoveredApp }) {
   const { meta, git } = app;
 
   return (
-    <div className="group rounded-xl border border-white/[0.06] bg-white/[0.03] p-5 transition-colors hover:border-white/[0.12] hover:bg-white/[0.05]">
+    <div className="group rounded-xl border border-gray-200 bg-white p-5 transition-colors hover:border-gray-300 hover:bg-gray-50">
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="text-base font-semibold text-gray-100 truncate">
+          <h3 className="text-base font-semibold text-gray-900 truncate">
             {meta.displayName}
           </h3>
           {meta.version && (
@@ -69,7 +69,7 @@ export function AppCard({ app }: { app: DiscoveredApp }) {
       </div>
 
       {/* Description */}
-      <p className="mt-3 text-sm text-gray-400 line-clamp-2">
+      <p className="mt-3 text-sm text-gray-600 line-clamp-2">
         {meta.description}
       </p>
 
@@ -88,14 +88,14 @@ export function AppCard({ app }: { app: DiscoveredApp }) {
           <span>Deploy:</span>
           <StatusBadge status={meta.deploy.status} type="deploy" />
           {meta.deploy.method && (
-            <span className="text-gray-600">via {meta.deploy.method}</span>
+            <span className="text-gray-400">via {meta.deploy.method}</span>
           )}
         </div>
       )}
 
       {/* Git info */}
       {git.lastCommitDate && (
-        <p className="mt-2 text-xs text-gray-600 truncate">
+        <p className="mt-2 text-xs text-gray-400 truncate">
           {git.branch && (
             <span className="font-mono text-gray-500">{git.branch}</span>
           )}
@@ -106,13 +106,13 @@ export function AppCard({ app }: { app: DiscoveredApp }) {
       )}
 
       {/* Links */}
-      <div className="mt-4 flex items-center gap-3 pt-3 border-t border-white/[0.06]">
+      <div className="mt-4 flex items-center gap-3 pt-3 border-t border-gray-200">
         {meta.github?.url && (
           <a
             href={meta.github.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-200 transition-colors"
+            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-gray-900 transition-colors"
           >
             <GithubIcon />
             <span>GitHub</span>
@@ -123,7 +123,7 @@ export function AppCard({ app }: { app: DiscoveredApp }) {
             href={meta.deploy.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-200 transition-colors"
+            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ExternalLinkIcon />
             <span>Visit</span>
@@ -132,7 +132,7 @@ export function AppCard({ app }: { app: DiscoveredApp }) {
         {meta.tags.length > 0 && (
           <div className="ml-auto flex gap-1">
             {meta.tags.map((tag) => (
-              <span key={tag} className="text-[10px] text-gray-600">
+              <span key={tag} className="text-[10px] text-gray-400">
                 #{tag}
               </span>
             ))}
